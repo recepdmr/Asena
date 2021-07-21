@@ -101,15 +101,15 @@ class Raffle extends Structure<typeof RaffleModel, SuperRaffle>{
                     .setAuthor(this.prize)
                     .setDescription([
                         `:medal: ${description}`,
-                        `:reminder_ribbon: ${server.translate('structures.raffle.creator')}: <@${this.constituent_id}>`
+                        `:reminder_ribbon: ${server.translate('structures.raffle.embed.fields.creator')}: <@${this.constituent_id}>`
                     ])
-                    .setFooter(`${server.translate('structures.raffle.footer.text', this.numbersOfWinner)} | ${server.translate('structures.raffle.footer.finish')}`)
+                    .setFooter(`${server.translate('structures.raffle.embed.footer.text', this.numbersOfWinner)} | ${server.translate('structures.raffle.embed.footer.finish')}`)
                     .setTimestamp(new Date(this.finishAt))
                     .setColor('#36393F')
 
                 await Promise.all([
                     message.edit(`${Constants.CONFETTI_REACTION_EMOJI} **${server.translate('structures.raffle.messages.finish')}** ${Constants.CONFETTI_REACTION_EMOJI}`, { embed }),
-                    channel.send(`${Constants.CONFETTI_EMOJI} ${content}\n**${server.translate('structures.raffle.giveaway')}** ${_message}`),
+                    channel.send(`${Constants.CONFETTI_EMOJI} ${content}\n**${server.translate('structures.raffle.embed.fields.giveaway')}** ${_message}`),
                     this.resolveWinners(client, server, channel.guild, winners)
                 ])
             }
@@ -137,12 +137,12 @@ class Raffle extends Structure<typeof RaffleModel, SuperRaffle>{
 
     public async resolveWinners(client: SuperClient, server: Server, guild: Guild, winners: string[]){
         const embed = new MessageEmbed()
-            .setAuthor(`${server.translate('structures.raffle.won')} 🏅`)
+            .setAuthor(`${server.translate('structures.raffle.winner.embed.title')} 🏅`)
             .setDescription([
-                `:gift: ${server.translate('structures.raffle.prize')}: **${this.prize}**`,
-                `:star: ${server.translate('structures.raffle.server')}: **${guild.name}**`,
-                `:link: **[${server.translate('structures.raffle.link')}](${this.getMessageURL()})**`,
-                `:rocket: **[${server.translate('structures.raffle.vote')}](${URLMap.VOTE})** • **[${server.translate('structures.raffle.vote')}](${URLMap.INVITE})**`
+                `:gift: ${server.translate('structures.raffle.winner.embed.fields.prize')}: **${this.prize}**`,
+                `:star: ${server.translate('structures.raffle.winner.embed.fields.server')}: **${guild.name}**`,
+                `:link: **[${server.translate('structures.raffle.winner.embed.fields.link')}](${this.getMessageURL()})**`,
+                `:rocket: **[${server.translate('global.vote')}](${URLMap.VOTE})** • **[${server.translate('structures.raffle.winner.embed.fields.invite')}](${URLMap.INVITE})**`
             ])
             .setFooter('Powered by Asena', guild.iconURL())
             .setTimestamp()
@@ -177,14 +177,14 @@ class Raffle extends Structure<typeof RaffleModel, SuperRaffle>{
         return new MessageEmbed()
             .setAuthor(this.prize)
             .setDescription([
-                `:star: ${server.translate('structures.raffle.join', Constants.CONFETTI_REACTION_EMOJI)}`,
+                `:star: ${server.translate('structures.raffle.embed.fields.join', Constants.CONFETTI_REACTION_EMOJI)}`,
                 `:alarm_clock: ${server.translate('global.date-time.time')}: **${time}**`,
-                `:calendar: ${server.translate('structures.raffle.to.end')}: **${remaining}**`,
-                `:reminder_ribbon: ${server.translate('structures.raffle.creator')}: <@${this.constituent_id}>`,
-                `:rocket: **[${server.translate('structures.raffle.timer')}](${parseGiveawayTimerURL(this.createdAt, length)})** • **[${server.translate('structures.raffle.vote')}](${URLMap.VOTE})**`,
+                `:calendar: ${server.translate('structures.raffle.embed.fields.to.end')}: **${remaining}**`,
+                `:reminder_ribbon: ${server.translate('structures.raffle.embed.fields.creator')}: <@${this.constituent_id}>`,
+                `:rocket: **[${server.translate('structures.raffle.embed.fields.timer')}](${parseGiveawayTimerURL(this.createdAt, length)})** • **[${server.translate('global.vote')}](${URLMap.VOTE})**`,
             ])
             .setColor(alert ? 'RED' : '#bd087d')
-            .setFooter(`${server.translate('structures.raffle.footer.text', this.numbersOfWinner)} | ${server.translate('structures.raffle.footer.continues')}`)
+            .setFooter(`${server.translate('structures.raffle.embed.footer.text', this.numbersOfWinner)} | ${server.translate('structures.raffle.embed.footer.continues')}`)
             .setTimestamp(this.finishAt)
     }
 

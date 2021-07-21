@@ -33,6 +33,7 @@
       "usage": "Kullanımı",
       "example": "Örnek",
       "message-id": "(mesaj-id)",
+      "vote": "Oy Ver",
       "date-time": {
         "months": {
           "1": "Ocak",
@@ -125,22 +126,31 @@
             "content": "Tebrikler {0}! **{1}** kazandınız."
           }
         },
-        "footer": {
-          "text": "{0} Kazanan",
-          "finish": "Sona Erdi",
-          "continues": "Bitiş"
+        "embed": {
+          "fields": {
+            "join": "Çekilişe katılmak için {0} emojisine tıklayın!",
+            "giveaway": "Çekiliş",
+            "creator": "Oluşturan",
+            "to.end": "Bitmesine",
+            "timer": "Çekiliş Sayacı"
+          },
+          "footer": {
+            "text": "{0} Kazanan",
+            "finish": "Sona Erdi",
+            "continues": "Bitiş"
+          }
         },
-        "join": "Çekilişe katılmak için {0} emojisine tıklayın!",
-        "giveaway": "Çekiliş",
-        "creator": "Oluşturan",
-        "to.end": "Bitmesine",
-        "timer": "Çekiliş Sayacı",
-        "vote": "Oy Ver",
-        "won": "Tebrikler, bir çekiliş kazandınız!",
-        "link": "Çekiliş Bağlantısı",
-        "invite": "Davet Et",
-        "prize": "Ödül",
-        "server": "Sunucu",
+        "winner": {
+          "embed": {
+            "title": "Tebrikler, bir çekiliş kazandınız!",
+            "fields": {
+              "prize": "Ödül",
+              "server": "Sunucu",
+              "link": "Çekiliş Bağlantısı",
+              "invite": "Davet Et"
+            }
+          }
+        },
         "messages": {
           "quick": "HIZLI ÇEKİLİŞ",
           "finish": "ÇEKİLİŞ BİTTİ",

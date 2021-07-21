@@ -45,6 +45,7 @@
       "usage": "Usage",
       "example": "Example",
       "message-id": "(message-id)",
+      "vote": "Vote",
       "date-time": {
         "months": {
           "1": "January",
@@ -136,22 +137,31 @@
             "content": "Congratulations {0}! You won **{1}**."
           }
         },
-        "footer": {
-          "text": "{0} Winners",
-          "finish": "Ended",
-          "continues": "Ends at"
+        "embed": {
+          "fields": {
+            "join": "Click on the {0} emoji to enter the giveaway!",
+            "giveaway": "Giveaway",
+            "creator": "Hosted by",
+            "to.end": "Time remaining",
+            "timer": "Giveaway Timer"
+          },
+          "footer": {
+            "text": "{0} Winners",
+            "finish": "Ended",
+            "continues": "Ends at"
+          }
         },
-        "join": "Click on the {0} emoji to enter the giveaway!",
-        "giveaway": "Giveaway",
-        "creator": "Hosted by",
-        "to.end": "Time remaining",
-        "timer": "Giveaway Timer",
-        "vote": "Vote",
-        "won": "Congratulations, you won a giveaway!",
-        "link": "Giveaway Link",
-        "invite": "Invite",
-        "prize": "Prize",
-        "server": "Server",
+        "winner": {
+          "embed": {
+            "title": "Congratulations, you won a giveaway!",
+            "fields": {
+              "prize": "Prize",
+              "server": "Server",
+              "link": "Giveaway Link",
+              "invite": "Invite"
+            }
+          }
+        },
         "messages": {
           "quick": "QUICK GIVEAWAY",
           "finish": "GIVEAWAY ENDED",
