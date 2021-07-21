@@ -1,5 +1,11 @@
 import {
-    GuildChannel, Message, MessageEmbed, MessageReaction, Snowflake, TextChannel
+    Guild,
+    GuildChannel,
+    Message,
+    MessageEmbed,
+    MessageReaction,
+    Snowflake,
+    TextChannel
 } from 'discord.js';
 import Structure from './Structure';
 import RaffleModel, { IRaffle, RaffleStatus } from '../models/Raffle';
@@ -81,7 +87,7 @@ class Raffle extends Structure<typeof RaffleModel, SuperRaffle>{
                         break
 
                     case 1:
-                        description = `${server.translate('structures.raffle.winners.single.description')}: <@${winners.shift()}>`
+                        description = `${server.translate('structures.raffle.winners.single.description')}: <@${winners[0]}>`
                         content = server.translate('structures.raffle.winners.single.content', winnersOfMentions.join(', '), this.prize)
                         break
 
@@ -93,14 +99,19 @@ class Raffle extends Structure<typeof RaffleModel, SuperRaffle>{
 
                 const embed: MessageEmbed = new MessageEmbed()
                     .setAuthor(this.prize)
-                    .setDescription([`:medal: ${description}`, `:reminder_ribbon: ${server.translate('structures.raffle.creator')}: <@${this.constituent_id}>`])
+                    .setDescription([
+                        `:medal: ${description}`,
+                        `:reminder_ribbon: ${server.translate('structures.raffle.creator')}: <@${this.constituent_id}>`
+                    ])
                     .setFooter(`${server.translate('structures.raffle.footer.text', this.numbersOfWinner)} | ${server.translate('structures.raffle.footer.finish')}`)
                     .setTimestamp(new Date(this.finishAt))
                     .setColor('#36393F')
 
-                await Promise.all([message.edit(`${Constants.CONFETTI_REACTION_EMOJI} **${server.translate('structures.raffle.messages.finish')}** ${Constants.CONFETTI_REACTION_EMOJI}`, {
-                    embed
-                }), channel.send(`${Constants.CONFETTI_EMOJI} ${content}\n**${server.translate('structures.raffle.giveaway')}** ${_message}`)])
+                await Promise.all([
+                    message.edit(`${Constants.CONFETTI_REACTION_EMOJI} **${server.translate('structures.raffle.messages.finish')}** ${Constants.CONFETTI_REACTION_EMOJI}`, { embed }),
+                    channel.send(`${Constants.CONFETTI_EMOJI} ${content}\n**${server.translate('structures.raffle.giveaway')}** ${_message}`),
+                    this.resolveWinners(client, server, channel.guild, winners)
+                ])
             }
         }
     }
@@ -124,6 +135,28 @@ class Raffle extends Structure<typeof RaffleModel, SuperRaffle>{
         return winners
     }
 
+    public async resolveWinners(client: SuperClient, server: Server, guild: Guild, winners: string[]){
+        const embed = new MessageEmbed()
+            .setAuthor(`${server.translate('structures.raffle.won')} 🏅`)
+            .setDescription([
+                `:gift: ${server.translate('structures.raffle.prize')}: **${this.prize}**`,
+                `:star: ${server.translate('structures.raffle.server')}: **${guild.name}**`,
+                `:link: **[${server.translate('structures.raffle.link')}](${this.getMessageURL()})**`,
+                `:rocket: **[${server.translate('structures.raffle.vote')}](${URLMap.VOTE})** • **[${server.translate('structures.raffle.vote')}](${URLMap.INVITE})**`
+            ])
+            .setFooter('Powered by Asena', guild.iconURL())
+            .setTimestamp()
+            .setColor('GREEN')
+
+        const promises: Promise<unknown>[] = winners.map(winner => new Promise(() => {
+            guild.members.fetch(winner).then(async user => {
+                await user.send({ embed }).catch(_ => {})
+            })
+        }))
+
+        await Promise.all(promises)
+    }
+
     public getMessageURL(): string{
         return `https://discordapp.com/channels/${this.server_id}/${this.channel_id}/${this.message_id}`
     }
@@ -143,7 +176,13 @@ class Raffle extends Structure<typeof RaffleModel, SuperRaffle>{
 
         return new MessageEmbed()
             .setAuthor(this.prize)
-            .setDescription([`:star: ${server.translate('structures.raffle.join', Constants.CONFETTI_REACTION_EMOJI)}`, `:alarm_clock: ${server.translate('global.date-time.time')}: **${time}**`, `:calendar: ${server.translate('structures.raffle.to.end')}: **${remaining}**`, `:reminder_ribbon: ${server.translate('structures.raffle.creator')}: <@${this.constituent_id}>`, `:rocket: **[${server.translate('structures.raffle.timer')}](${parseGiveawayTimerURL(this.createdAt, length)})** • **[${server.translate('structures.raffle.vote')}](${URLMap.VOTE})**`,])
+            .setDescription([
+                `:star: ${server.translate('structures.raffle.join', Constants.CONFETTI_REACTION_EMOJI)}`,
+                `:alarm_clock: ${server.translate('global.date-time.time')}: **${time}**`,
+                `:calendar: ${server.translate('structures.raffle.to.end')}: **${remaining}**`,
+                `:reminder_ribbon: ${server.translate('structures.raffle.creator')}: <@${this.constituent_id}>`,
+                `:rocket: **[${server.translate('structures.raffle.timer')}](${parseGiveawayTimerURL(this.createdAt, length)})** • **[${server.translate('structures.raffle.vote')}](${URLMap.VOTE})**`,
+            ])
             .setColor(alert ? 'RED' : '#bd087d')
             .setFooter(`${server.translate('structures.raffle.footer.text', this.numbersOfWinner)} | ${server.translate('structures.raffle.footer.continues')}`)
             .setTimestamp(this.finishAt)

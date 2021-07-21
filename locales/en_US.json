@@ -147,6 +147,11 @@
         "to.end": "Time remaining",
         "timer": "Giveaway Timer",
         "vote": "Vote",
+        "won": "Congratulations, you won a giveaway!",
+        "link": "Giveaway Link",
+        "invite": "Invite",
+        "prize": "Prize",
+        "server": "Server",
         "messages": {
           "quick": "QUICK GIVEAWAY",
           "finish": "GIVEAWAY ENDED",

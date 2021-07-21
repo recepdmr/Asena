@@ -136,6 +136,11 @@
         "to.end": "Bitmesine",
         "timer": "Çekiliş Sayacı",
         "vote": "Oy Ver",
+        "won": "Tebrikler, bir çekiliş kazandınız!",
+        "link": "Çekiliş Bağlantısı",
+        "invite": "Davet Et",
+        "prize": "Ödül",
+        "server": "Sunucu",
         "messages": {
           "quick": "HIZLI ÇEKİLİŞ",
           "finish": "ÇEKİLİŞ BİTTİ",

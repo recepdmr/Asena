@@ -95,7 +95,10 @@ export default class ReRollRaffle extends Command{
         if(winners.length === 0){
             await message.channel.send(server.translate('commands.raffle.reroll.not.enough', _message))
         }else{
-            await message.channel.send(Constants.CONFETTI_EMOJI + ' ' + server.translate('commands.raffle.reroll.success', winners.map(winner => `<@${winner}>`).join(', '), raffle.prize, _message))
+            await Promise.all([
+                message.channel.send(Constants.CONFETTI_EMOJI + ' ' + server.translate('commands.raffle.reroll.success', winners.map(winner => `<@${winner}>`).join(', '), raffle.prize, _message)),
+                raffle.resolveWinners(client, server, message.guild, winners)
+            ])
         }
 
         if(message.guild.me.hasPermission('MANAGE_MESSAGES')){
