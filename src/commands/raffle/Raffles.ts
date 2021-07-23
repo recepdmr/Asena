@@ -1,6 +1,5 @@
 import { Message, MessageEmbed } from 'discord.js'
-
-import Command from '../Command'
+import Command, { Group } from '../Command'
 import Constants from '../../Constants'
 import SuperClient from '../../SuperClient'
 import Server from '../../structures/Server'
@@ -11,6 +10,7 @@ export default class Raffles extends Command{
     constructor(){
         super({
             name: 'raffles',
+            group: Group.GIVEAWAY,
             aliases: ['giveaway', 'giveaways', 'çekilişler', 'cekilisler', 'list'],
             description: 'commands.raffle.list.description',
             usage: null,

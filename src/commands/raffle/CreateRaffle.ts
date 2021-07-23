@@ -1,6 +1,5 @@
 import { Message } from 'discord.js'
-
-import Command from '../Command'
+import Command, { Group } from '../Command'
 import Constants from '../../Constants'
 import SuperClient from '../../SuperClient';
 import { strToSeconds } from '../../utils/DateTimeHelper';
@@ -13,6 +12,7 @@ export default class CreateRaffle extends Command{
     constructor(){
         super({
             name: 'create',
+            group: Group.GIVEAWAY,
             aliases: ['çekilişoluştur', 'çekilişbaşlat', 'cekilisbaslat', 'createraffle'],
             description: 'commands.raffle.create.description',
             usage: 'commands.raffle.create.usage',

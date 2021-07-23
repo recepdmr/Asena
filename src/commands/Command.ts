@@ -5,11 +5,19 @@ import ArgValidatorKit from './ArgValidatorKit';
 
 interface CommandOptions{
     name: string
-    aliases: string[],
-    description: string,
-    usage: string | null,
-    permission: PermissionString | undefined,
+    group: Group
+    aliases: string[]
+    description: string
+    usage: string | null
+    permission: PermissionString | undefined
     examples: string[]
+}
+
+export enum Group{
+    GIVEAWAY = 'raffle',
+    POLL = 'survey',
+    SERVER = 'server',
+    BOT = 'bot'
 }
 
 export default abstract class Command extends ArgValidatorKit{
@@ -20,6 +28,10 @@ export default abstract class Command extends ArgValidatorKit{
 
     public get name(): string{
         return this.props.name
+    }
+
+    public get group(): Group{
+        return this.props.group
     }
 
     public get aliases(): string[]{

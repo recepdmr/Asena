@@ -1,4 +1,4 @@
-import Command from '../Command';
+import Command, { Group } from '../Command';
 import SuperClient from '../../SuperClient';
 import { Message } from 'discord.js';
 import Server from '../../structures/Server';
@@ -8,6 +8,7 @@ export default class SetCommandPermission extends Command{
     constructor(){
         super({
             name: 'scperm',
+            group: Group.SERVER,
             aliases: ['setcommmandpermission', 'setcommandperm'],
             description: 'commands.server.permission.description',
             usage: 'commands.server.permission.usage',

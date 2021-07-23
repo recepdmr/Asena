@@ -186,6 +186,7 @@
         }
       },
       "bot": {
+        "name": "Bot Commands",
         "ping": {
           "description": "Displays the bot network latency information",
           "calculating": "Calculating...",
@@ -216,7 +217,6 @@
             "title": "Command Help",
             "fields": {
               "command": "Command",
-              "commands": "Commands",
               "more": {
                 "detailed": "More detailed help?",
                 "info": "More information?"
@@ -300,6 +300,7 @@
         }
       },
       "server": {
+        "name": "Server Commands",
         "locale": {
           "description": "Changes the bot default language",
           "usage": "[list | set | reset] <args>",
@@ -325,7 +326,7 @@
           "changed": "The command prefix has set to **{0}**."
         },
         "permission": {
-          "description": "Edits command's permissions.",
+          "description": "Edits commands permissions",
           "usage": "[everyone | admin] [command]",
           "command": {
             "not": {
@@ -338,8 +339,9 @@
         }
       },
       "raffle": {
+        "name": "Giveaway Commands",
         "soundaway": {
-          "description": "Starts a new quick giveaway in the voice channel.",
+          "description": "Starts a new quick giveaway in the voice channel",
           "usage": "[number of winners] <@member-mention | voice-channel-id | empty> <title>",
           "limits": {
             "winner.count": "The winners of the giveaway must be maximum 20, minimum 1.",
@@ -495,6 +497,7 @@
         }
       },
       "survey": {
+        "name": "Poll Commands",
         "question": {
           "description": "You can ask questions to the server",
           "usage": "{question} ...[options]",
@@ -503,7 +506,7 @@
           "error": "The question could not be sended on the chat channel for some reason."
         },
         "vote": {
-          "description": "Creates a two-option voting poll.",
+          "description": "Creates a two-option voting poll",
           "usage": "(time) [voting text]",
           "embed": {
             "description": "The voting has started!",
