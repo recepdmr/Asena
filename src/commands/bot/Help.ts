@@ -83,15 +83,13 @@ export default class Help extends Command{
                 }
 
                 await message.channel.send({ embed })
-
-                return true
             }else{
                 await message.channel.send({
                     embed: this.getErrorEmbed(server.translate('commands.bot.help.error', command))
                 })
-
-                return true
             }
+
+            return true
         }
     }
 }
