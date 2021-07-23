@@ -66,8 +66,8 @@ export default class Help extends Command{
 
             return true
         }else{
-            const searchCommand: Command | undefined = client.getCommandHandler().getCommandsMap().filter($command => $command.name === command.trim()).first()
             let embed
+            const searchCommand: Command | undefined = client.getCommandHandler().getCommandsMap().filter($command => $command.name === command.trim()).first()
             if(searchCommand){
                 const fullCMD = prefix + searchCommand.name
                 embed = new MessageEmbed()
