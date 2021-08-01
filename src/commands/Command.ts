@@ -4,13 +4,13 @@ import Server from '../structures/Server';
 import ArgValidatorKit from './ArgValidatorKit';
 
 interface CommandOptions{
-    name: string
-    group: Group
-    aliases: string[]
-    description: string
-    usage: string | null
-    permission: PermissionString | undefined
-    examples: string[]
+    readonly name: string
+    readonly group: Group
+    readonly aliases: string[]
+    readonly description: string
+    readonly usage: string | null
+    readonly permission: PermissionString | undefined
+    readonly examples: string[]
 }
 
 export enum Group{
@@ -20,43 +20,31 @@ export enum Group{
     BOT = 'bot'
 }
 
-export default abstract class Command extends ArgValidatorKit{
+export default abstract class Command extends ArgValidatorKit implements CommandOptions{
 
-    protected constructor(protected readonly props: CommandOptions){
+    readonly name: string
+    readonly group: Group
+    readonly aliases: string[]
+    readonly description: string
+    readonly usage: string | null
+    readonly permission: PermissionString | undefined
+    readonly examples: string[]
+
+    protected constructor(opts: CommandOptions){
         super()
-    }
 
-    public get name(): string{
-        return this.props.name
-    }
-
-    public get group(): Group{
-        return this.props.group
-    }
-
-    public get aliases(): string[]{
-        return this.props.aliases
-    }
-
-    public get description(): string{
-        return this.props.description
-    }
-
-    public get usage(): string | null{
-        return this.props.usage
-    }
-
-    public get permission(): string | undefined{
-        return this.props.permission
-    }
-
-    public get examples(): string[]{
-        return this.props.examples
+        this.name = opts.name
+        this.group = opts.group
+        this.aliases = opts.aliases ?? []
+        this.description = opts.description
+        this.usage = opts.usage
+        this.permission = opts.permission
+        this.examples = opts.examples ?? []
     }
 
     public hasPermission(member: GuildMember): boolean{
-        if(this.props.permission){
-            return member.hasPermission(this.props.permission)
+        if(this.permission){
+            return member.hasPermission(this.permission)
         }
 
         return true
